@@ -1,13 +1,22 @@
+"use client";
+
+import { useParams } from "next/navigation";
 import { notFound } from "next/navigation";
-import { externalApiService } from "@/services/external-api.service";
-import { headers } from "next/headers";
+import { useDocument } from "@/hooks/use-document";
 import Content from "./_components/content";
+import LoadingPage from "@/components/loading-page";
 
-export default async function DocumentPage({ params }: { params: Promise<{ documentId: string }> }) {
-  const { documentId } = await params;
-  const document = await externalApiService.getDocument(documentId, await headers());
+export default function DocumentPage() {
+  const params = useParams();
+  const documentId = params?.documentId as string;
 
-  if (!document) {
+  const { data: document, isLoading, error } = useDocument(documentId);
+
+  if (isLoading) {
+    return <LoadingPage />;
+  }
+
+  if (error || !document) {
     notFound();
   }
 
