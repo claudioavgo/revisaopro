@@ -1,0 +1,124 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum AccountProvider {
+  email
+  google
+}
+
+model User {
+  id String @id @default(uuid())
+
+  email    String @unique
+  username String @unique
+
+  avatar      String?
+  displayName String?
+  bio         String?
+
+  documents  Document[]
+  flashcards Flashcard[]
+  questions  Question[]
+  uploads    Upload[]
+
+  accounts Account[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Account {
+  id String @id @default(uuid())
+
+  provider   AccountProvider
+  providerId String?
+
+  accessToken  String?
+  refreshToken String?
+  country      String?
+
+  user   User?   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, provider])
+}
+
+model Document {
+  id String @id @default(uuid())
+
+  name      String
+  type      String
+  extension String
+  size      Int
+
+  resume          String?
+  parsedResumeURL String?
+  pages           Int?
+
+  flashcards Flashcard[]
+
+  uploadId String @unique
+  upload   Upload @relation(fields: [uploadId], references: [id], onDelete: Cascade)
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Upload {
+  id String @id @default(uuid())
+
+  url       String
+  type      String
+  name      String
+  extension String
+  size      Int
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  document Document?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Question {
+  id String @id @default(uuid())
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Flashcard {
+  id String @id @default(uuid())
+
+  question    String
+  answer      String
+  explanation String?
+  reference   String?
+
+  documentId String
+  document   Document @relation(fields: [documentId], references: [id], onDelete: Cascade)
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
