@@ -10,6 +10,7 @@ import { extractTextFromPdf } from '@/lib/extract-text-from-pdf.service';
 import { FileService } from '@/infra/storage/file/file.service';
 import { Readable } from 'stream';
 import { Document } from 'generated/prisma';
+import { Request } from 'express';
 
 @Injectable()
 export class DocumentService {
