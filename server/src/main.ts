@@ -22,7 +22,8 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
 
   app.enableCors({
-    origin: ['http://localhost:3000', 'https://revisao.pro'],
+    origin: true,
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
   });
 
