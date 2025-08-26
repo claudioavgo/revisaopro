@@ -34,7 +34,7 @@ export function useDocumentStream(documentId: string): DocumentStreamResult {
       isComplete: false,
     }));
 
-    const url = `http://localhost:3003/v1/document/${documentId}/stream`;
+    const url = `${process.env.NEXT_PUBLIC_API_URL}/v1/document/${documentId}/stream`;
     const eventSource = new EventSource(url, {
       withCredentials: true,
     });
