@@ -113,11 +113,11 @@ function SidebarItem({
   item,
   isActive,
   isOpen,
-}: {
+}: Readonly<{
   item: Item;
   isActive: boolean;
   isOpen: boolean;
-}) {
+}>) {
   const base =
     "group relative flex w-full items-center gap-3 rounded-2xl px-3 py-2.5 text-sm outline-none transition-colors";
   const state = isActive
