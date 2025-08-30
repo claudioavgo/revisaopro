@@ -14,6 +14,7 @@ const cardVariants = cva(
         "3d-orange": "duolingo-3d-orange border-0",
         "3d-red": "duolingo-3d-red border-0",
         "3d-purple": "duolingo-3d-purple border-0",
+        flat: "rounded-2xl border active:border-b-2 border-border bg-background text-foreground font-medium hover:bg-accent hover:text-accent-foreground active:bg-accent/80 transition-colors",
       },
     },
     defaultVariants: {

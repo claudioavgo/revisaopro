@@ -1,7 +1,6 @@
 "use client";
 
-import { useParams } from "next/navigation";
-import { notFound } from "next/navigation";
+import { useParams, notFound } from "next/navigation";
 import { useDocument } from "@/hooks/use-document";
 import Content from "./_components/content";
 import LoadingPage from "@/components/loading-page";
@@ -22,7 +21,7 @@ export default function DocumentPage() {
 
   return (
     <div>
-      <Content summary={document.resume ?? ""} createdAt={new Date(document.createdAt)} documentId={document.id} />
+      <Content summary={document.resume} createdAt={new Date(document.createdAt)} documentId={document.id} />
     </div>
   );
 }

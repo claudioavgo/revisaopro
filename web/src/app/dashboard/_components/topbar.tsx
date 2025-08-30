@@ -6,7 +6,7 @@ import { NewContentModal } from "./new-content-modal";
 import { useAuth } from "@/hooks/use-auth";
 import { useSidebar } from "@/contexts/sidebar-context";
 
-export function Navbar({ isChatOpen, setIsChatOpen }: { isChatOpen: boolean, setIsChatOpen: (isOpen: boolean) => void }) {
+export function Topbar() {
   const { currentPageName } = useSidebar();
   const { logout } = useAuth();
 
@@ -26,9 +26,6 @@ export function Navbar({ isChatOpen, setIsChatOpen }: { isChatOpen: boolean, set
         className="flex items-center gap-2"
       >
         <NewContentModal />
-        <Button variant="flat" onClick={() => setIsChatOpen(!isChatOpen)}>
-          {isChatOpen ? "Fechar chat" : "Abrir chat"}
-        </Button>
         <Button variant="flat" onClick={logout}>
           Sair
         </Button>

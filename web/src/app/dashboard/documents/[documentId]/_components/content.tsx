@@ -7,16 +7,17 @@ import { MarkdownViewer } from "@/components/content/markdown-viewer";
 import { Badge } from "@/components/ui/badge";
 import { formatDate } from "@/lib/date";
 import { useDocumentStream } from "@/hooks/use-document-stream";
+import LoadingPage from "@/components/loading-page";
 
 interface ContentProps {
-  summary: string;
+  summary: string | null;
   createdAt: Date;
   documentId: string;
 }
 
 export default function Content({ summary: initialSummary, createdAt, documentId }: Readonly<ContentProps>) {
   const [activeTab, setActiveTab] = useState<"summary" | "questions" | "flashcards">("summary");
-  const [summary, setSummary] = useState<string>(initialSummary);
+  const [summary, setSummary] = useState<string | null>(initialSummary);
   const { content, isLoading, isComplete } = useDocumentStream(documentId);
 
   useEffect(() => {
@@ -42,7 +43,7 @@ export default function Content({ summary: initialSummary, createdAt, documentId
   );
 }
 
-function Summary({ summary, createdAt }: { summary: string, createdAt: Date }) {
+function Summary({ summary, createdAt }: { summary: string | null, createdAt: Date }) {
   return (
     <Card className="w-full h-full">
       <CardHeader className="flex items-center gap-2">
@@ -51,7 +52,15 @@ function Summary({ summary, createdAt }: { summary: string, createdAt: Date }) {
       </CardHeader>
       <CardContent>
         <div className="max-w-none">
-          <MarkdownViewer key={summary.length} content={summary} />
+          {
+            summary ? (
+              <MarkdownViewer key={summary.length} content={summary} />
+            ) : (
+              <div className="flex items-center justify-center h-full w-full">
+                <LoadingPage />
+              </div>
+            )
+          }
         </div>
       </CardContent>
     </Card>

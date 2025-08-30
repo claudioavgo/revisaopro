@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { useAuth } from "@/hooks/use-auth";
-import { FileText, Calendar, FileImage, HardDrive } from "lucide-react";
+import { FileText, Calendar, HardDrive } from "lucide-react";
 import { formatDate } from "@/lib/date";
 
 import Link from "next/link";
@@ -34,7 +34,7 @@ export function ListContents() {
       variants={{
         visible: {
           transition: {
-            staggerChildren: 0.08,
+            staggerChildren: 0.1,
             delayChildren: 0.1,
           },
         },
@@ -97,13 +97,6 @@ function ContentCard({ document }: ContentCardProps) {
     return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + ' ' + sizes[i];
   };
 
-  const getFileIcon = (extension: string) => {
-    const ext = extension.toLowerCase();
-    if (['pdf'].includes(ext)) return FileText;
-    if (['jpg', 'jpeg', 'png', 'gif', 'webp'].includes(ext)) return FileImage;
-    return FileText;
-  };
-
   const getBadgeVariant = (extension: string) => {
     const ext = extension.toLowerCase();
     if (['pdf'].includes(ext)) return '3d-red' as const;
@@ -114,15 +107,15 @@ function ContentCard({ document }: ContentCardProps) {
     return '3d-blue' as const;
   };
 
-  const FileIcon = getFileIcon(document.extension);
-
   return (
-    <Card variant="3d-blue" className="transition-all cursor-pointer group h-full font-mono">
+    <Card className="transition-all cursor-pointer group h-full font-mono">
       <CardHeader>
         <div className="flex items-start justify-between gap-2">
           <div className="flex items-center gap-2 min-w-0 flex-1">
-            <FileIcon className="h-5 w-5 text-muted flex-shrink-0" />
-            <CardTitle className="text-lg line-clamp-2 leading-tight transition-colors">
+            <CardTitle
+              className="text-lg line-clamp-2 leading-tight transition-colors truncate text-ellipsis"
+              title={document.name}
+            >
               {document.name}
             </CardTitle>
           </div>
@@ -134,21 +127,21 @@ function ContentCard({ document }: ContentCardProps) {
 
       <CardContent>
         <div className="grid grid-cols-2 gap-3 text-sm">
-          <div className="flex items-center gap-1.5 text-muted">
+          <div className="flex items-center gap-1.5 text-muted-foreground">
             <HardDrive className="h-3.5 w-3.5" />
-            <span className="font-medium text-muted">{formatFileSize(document.size)}</span>
+            <span className="font-medium text-muted-foreground">{formatFileSize(document.size)}</span>
           </div>
           {document.pages && (
             <div className="flex items-center gap-1.5 text-muted">
               <FileText className="h-3.5 w-3.5" />
-              <span className="font-medium text-muted">{document.pages}</span>
+              <span className="font-medium text-muted-foreground">{document.pages}</span>
               <span className="text-xs">págs</span>
             </div>
           )}
         </div>
       </CardContent>
       <CardFooter>
-        <div className="flex items-center gap-1.5 text-sm text-muted">
+        <div className="flex items-center gap-1.5 text-sm text-muted-foreground">
           <Calendar className="h-3.5 w-3.5" />
           <span className="text-xs">Criado em {formatDate(new Date(document.createdAt))}</span>
         </div>
