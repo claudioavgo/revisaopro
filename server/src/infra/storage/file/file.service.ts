@@ -3,7 +3,6 @@ import { AwsService } from './aws/aws.service';
 import { PrismaService } from '../db/prisma/prisma.service';
 import { ENUM_DOCUMENT_TYPE } from 'src/types/content.type';
 import { Upload } from 'generated/prisma';
-import { Request } from 'express';
 
 @Injectable()
 export class FileService {
@@ -47,8 +46,8 @@ export class FileService {
       .split('.')
       .slice(0, -1)
       .join('')
-      .replace(/ /g, '_')
-      .replace(/\./g, '_');
+      .replaceAll(' ', '_')
+      .replaceAll('.', '_');
     const pathFileName = `${directory}/${userId}/${formattedName}.${extension}`;
     file.originalname = pathFileName;
 

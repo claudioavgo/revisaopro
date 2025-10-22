@@ -8,9 +8,8 @@ import { PrismaService } from '@/infra/storage/db/prisma/prisma.service';
 import { CreateDocumentDTO } from './dto/create-document.dto';
 import { extractTextFromPdf } from '@/lib/extract-text-from-pdf.service';
 import { FileService } from '@/infra/storage/file/file.service';
-import { Readable } from 'stream';
+import { Readable } from 'node:stream';
 import { Document } from 'generated/prisma';
-import { Request } from 'express';
 
 @Injectable()
 export class DocumentService {
