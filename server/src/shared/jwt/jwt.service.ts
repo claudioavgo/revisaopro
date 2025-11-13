@@ -1,5 +1,6 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService as Jwt } from '@nestjs/jwt';
+import type { StringValue } from 'ms';
 
 import { env } from '@/lib/env';
 
@@ -16,7 +17,7 @@ export class JWTService {
 
     return await this.jwt.signAsync(payload, {
       secret: env.JWT_AUTHENTICATION_TOKEN_SECRET,
-      expiresIn: env.JWT_AUTHENTICATION_TOKEN_EXPIRES_IN as string,
+      expiresIn: env.JWT_AUTHENTICATION_TOKEN_EXPIRES_IN as StringValue,
     });
   }
 
