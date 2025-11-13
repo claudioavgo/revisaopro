@@ -16,7 +16,7 @@ export class JWTService {
 
     return await this.jwt.signAsync(payload, {
       secret: env.JWT_AUTHENTICATION_TOKEN_SECRET,
-      expiresIn: env.JWT_AUTHENTICATION_TOKEN_EXPIRES_IN,
+      expiresIn: env.JWT_AUTHENTICATION_TOKEN_EXPIRES_IN as string,
     });
   }
 

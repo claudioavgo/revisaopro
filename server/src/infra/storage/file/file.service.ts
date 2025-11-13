@@ -3,6 +3,7 @@ import { AwsService } from './aws/aws.service';
 import { PrismaService } from '../db/prisma/prisma.service';
 import { ENUM_DOCUMENT_TYPE } from 'src/types/content.type';
 import { Upload } from 'generated/prisma';
+import type { Express } from 'express';
 
 @Injectable()
 export class FileService {
