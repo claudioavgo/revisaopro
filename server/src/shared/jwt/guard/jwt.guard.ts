@@ -6,7 +6,7 @@ import {
 } from '@nestjs/common';
 
 import { JWTService } from '@/shared/jwt/jwt.service';
-import { JWTRequest } from '@/types/jwt-request.type';
+import type { JWTRequest } from '@/types/jwt-request.type';
 
 @Injectable()
 export class JWTGuard implements CanActivate {

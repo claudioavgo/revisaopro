@@ -1,5 +1,5 @@
 import { createParamDecorator, ExecutionContext } from '@nestjs/common';
-import { JWTRequest } from '../../types/jwt-request.type';
+import type { JWTRequest } from '../../types/jwt-request.type';
 
 export const UserId = createParamDecorator(
   (data: unknown, ctx: ExecutionContext): string => {
